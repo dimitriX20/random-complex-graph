@@ -3,18 +3,15 @@ import networkx as nx
 from scipy.stats import powerlaw
 from DSU import dsu
 import plotly.graph_objects as go
-import random 
-
-# wechsle zum torus  
-# schwellenwert für die Existenz einer giant component ermitteln 
+import random  
 
 class RandomGeometricGraph:
     def __init__(self, num_nodes, gamma, alpha, func):
         self.num_nodes = num_nodes
-        self.dimension = 2  # unit square
+        self.dimension = 2   
         self.alpha = alpha
         self.func = func
-        self.graph = nx.Graph()  # empty graph to begin with
+        self.graph = nx.Graph()   
         self._place_nodes()
         self.weights = {node: random.paretovariate(gamma) for node in self.graph.nodes}
         self.largestComponentSz = 1
@@ -41,13 +38,13 @@ class RandomGeometricGraph:
                 pos1 = np.array(self.graph.nodes[node1]['pos'])
                 pos2 = np.array(self.graph.nodes[node2]['pos'])
                 distance = np.linalg.norm(pos1 - pos2)
-                #print(distance)
 
                 if self.func(weight1, weight2, distance) >= self.alpha:
                     self.graph.add_edge(node1, node2, weight=1)
                     self.amountComponents -= self.dsu.union(node1, node2)
                     self.m += 1 
                     self.maxEdgeLength = max(self.maxEdgeLength, distance)
+        
         self.distance_matrix = nx.floyd_warshall_numpy(self.graph)
 
     def getAverageDistance(self): 

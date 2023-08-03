@@ -67,7 +67,6 @@ class RandomGeometricGraph:
                 pos1 = np.array(self.graph.nodes[node1]['pos'])
                 pos2 = np.array(self.graph.nodes[node2]['pos'])
                 distance = np.linalg.norm(pos1 - pos2)
-                #print(distance)
 
                 if self.func(weight1, weight2, distance) >= self.alpha:
                     self.graph.add_edge(node1, node2, weight=1)

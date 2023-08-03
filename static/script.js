@@ -9,14 +9,12 @@ var svg = d3.select("body").append("svg")
     var xOffset = (width - squareSize) / 2;
     var yOffset = (height - squareSize) / 2;
 
-d3.json("http://localhost:5000/graph").then(function(graph) {
-    //console.log("Data fetched from the server:", graph);
-    console.log(`nodes: ${graph.nodes.length}, edges: ${graph.edges.length}, γ: ${graph.gamma}, α: ${graph.alpha}`);
-    console.log(`#components: ${graph.amountComp}, size of largest component: ${graph.largestComponentSz}`);
-    console.log(`diameter: ${graph.diameter}, maximum edge distance: ${graph.mxEdge}`);
-    //console.log(`maximum edge distance: ${graph.mxEdge}`); 
-    console.log(`average distance: ${graph.avgDist}`);
-    console.log(`clustering coeffcient: ${graph.clusteringCoef}`);
+d3.json("http://localhost:5000/graph").then(function(graph) { 
+    console.log(`            nodes: ${graph.nodes.length}, edges: ${graph.edges.length}, γ: ${graph.gamma}, α: ${graph.alpha}`);
+    console.log(`            #components: ${graph.amountComp}, size of largest component: ${graph.largestComponentSz}`);
+    console.log(`            diameter: ${graph.diameter}, maximum edge distance: ${graph.mxEdge}`);
+    console.log(`            average distance: ${graph.avgDist}`);
+    console.log(`            clustering coeffcient: ${graph.clusteringCoef}`);
 
     var rect = svg.append("rect")
         .attr("x", 150)
@@ -36,8 +34,7 @@ d3.json("http://localhost:5000/graph").then(function(graph) {
         .attr("x2", function(d) { return xOffset + graph.nodes[d.target].x * squareSize; })
         .attr("y2", function(d) { return yOffset + graph.nodes[d.target].y * squareSize; })
         .style("stroke", "black")
-        .style("stroke-width", "1.7px") // "enhance" edge width
-        //.each(function() { console.log("Created a edge"); });
+        .style("stroke-width", "1.7px") // "enhance" edge width 
     
 
     var node = svg.append("g")
