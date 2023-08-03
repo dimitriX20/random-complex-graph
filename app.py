@@ -11,9 +11,9 @@ def home():
 
 @app.route('/graph', methods=['GET'])
 def get_graph_data():
-    n = request.args.get('n', default=1000, type=int)
+    n = request.args.get('n', default=500, type=int)
     gamma = request.args.get('gamma', default=2.5, type=float)
-    alpha = request.args.get('alpha', default=444, type=float)
+    alpha = request.args.get('alpha', default=200, type=float)
 
     func_str = request.args.get('func', default="lambda x, y, z: x*y / (z**2)")
     func = eval(func_str)
@@ -29,7 +29,7 @@ def get_graph_data():
     diam = rgg.getDiameter()
     avgDistance = rgg.getAverageDistance()
     mxEdge = round(rgg.maxEdgeLength, 3)
-    #rgg.plot_degree_distribution()
+    rgg.plot_degree_distribution()
     #rgg.plot_weights()
     return jsonify({'nodes': nodes, 'edges': edges, 'mxEdge': mxEdge, 'gamma': gamma, 'alpha': alpha, 'largestComponentSz': largestComponentSz, 'diameter': diam, 'avgDist': avgDistance, 'amountComp': rgg.amountComponents, 'clusteringCoef': rgg.getClusteringCoeffcient()})
 

@@ -65,9 +65,13 @@ class RandomGeometricGraph:
     def getLargestComponent(self):
         for i in range(self.num_nodes): 
             self.largestComponentSz = max(self.largestComponentSz, self.dsu.sz(i))
+        return self.largestComponentSz
 
     def getClusteringCoeffcient(self):  
         return round(nx.average_clustering(self.graph), 3)
+
+    def isConnected(self): 
+        return self.amountComponents == 1
 
     def plot_degree_distribution(self): 
         degrees = [deg for _, deg in self.graph.degree()]
