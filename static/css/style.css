@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif; 
+    transform: scale(1.2);
+}
+
+svg {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+.links line {
+    stroke: #000000;
+    stroke-opacity: 1;
+}
