@@ -33,8 +33,8 @@ d3.json("http://localhost:5000/graph").then(function(graph) {
         .attr("y1", function(d) { return yOffset + graph.nodes[d.source].y * squareSize; })
         .attr("x2", function(d) { return xOffset + graph.nodes[d.target].x * squareSize; })
         .attr("y2", function(d) { return yOffset + graph.nodes[d.target].y * squareSize; })
-        .style("stroke", "black")
-        .style("stroke-width", "1.7px") // "enhance" edge width 
+        .style("stroke", function(d) { return d.is_diam_path ? "red" : "black"; })
+        .style("stroke-width", function(d) { return d.is_diam_path ? "7px" : "1.7px"; }); // "enhance" edge width 
     
 
     var node = svg.append("g")

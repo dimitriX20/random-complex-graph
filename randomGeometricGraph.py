@@ -19,6 +19,7 @@ class RandomGeometricGraph:
         self.m = 0 
         self.amountComponents = num_nodes
         self.maxEdgeLength = 0
+        self.diameter = 0
         
     def _place_nodes(self):
         for i in range(self.num_nodes):
@@ -44,7 +45,6 @@ class RandomGeometricGraph:
                     self.amountComponents -= self.dsu.union(node1, node2)
                     self.m += 1 
                     self.maxEdgeLength = max(self.maxEdgeLength, distance)
-        
         self.distance_matrix = nx.floyd_warshall_numpy(self.graph)
 
     def getAverageDistance(self): 
@@ -57,7 +57,19 @@ class RandomGeometricGraph:
         valid_distances = self.distance_matrix[np.isfinite(self.distance_matrix)]
         if valid_distances.size == 0:
             return 0
-        return np.max(valid_distances)
+        self.diameter = np.max(valid_distances)
+        return self.diameter
+
+    def get_diameter_path(self): 
+        max_dist = -np.inf  # Starting with negative infinity to ensure any real distance is greater.
+        max_indices = (0, 0)  # Placeholder for the indices (i, j).
+
+        for i in range(self.num_nodes):
+            for j in range(i+1, self.num_nodes):
+                if i != j and self.distance_matrix[i][j] != np.inf and self.distance_matrix[i][j] > max_dist:
+                    max_dist = self.distance_matrix[i][j]
+                    max_indices = (i, j)
+        return nx.shortest_path(self.graph, max_indices[0], max_indices[1])
 
     def getLargestComponent(self):
         for i in range(self.num_nodes): 
