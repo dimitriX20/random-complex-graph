@@ -44,7 +44,7 @@ class RandomGeometricGraph:
                 #print(distance)
 
                 if self.func(weight1, weight2, distance) >= self.alpha:
-                    self.graph.add_edge(node1, node2, weight=weight1 * weight2)
+                    self.graph.add_edge(node1, node2, weight=1)
                     self.amountComponents -= self.dsu.union(node1, node2)
                     self.m += 1 
                     self.maxEdgeLength = max(self.maxEdgeLength, distance)
@@ -60,7 +60,7 @@ class RandomGeometricGraph:
         valid_distances = self.distance_matrix[np.isfinite(self.distance_matrix)]
         if valid_distances.size == 0:
             return 0
-        return round(np.max(valid_distances), 2)
+        return np.max(valid_distances)
 
     def getLargestComponent(self):
         for i in range(self.num_nodes): 
