@@ -11,9 +11,9 @@ def home():
 
 @app.route('/graph', methods=['GET'])
 def get_graph_data():
-    n = request.args.get('n', default=500, type=int)
+    n = request.args.get('n', default=2000, type=int)
     gamma = request.args.get('gamma', default=2.5, type=float)
-    alpha = request.args.get('alpha', default=200, type=float)
+    alpha = request.args.get('alpha', default=1600, type=float)
 
     func_str = request.args.get('func', default="lambda x, y, z: x*y / (z**2)")
     func = eval(func_str)

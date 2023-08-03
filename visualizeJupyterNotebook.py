@@ -125,20 +125,56 @@ class RandomGeometricGraph:
 
         fig.show()
 
+
+
+ 
 func = eval("lambda x, y, z: x*y / (z**2)")
-gamma = 2.5    
+
+''' 
+alphas = []
+giant_component_sizes = []
+
+N = 10
 k = 15
-alpha = -5
+alpha = 0
+
+for i in range(N):
+    alpha += 20
+    avg_giant_component_size = 0
+    for j in range(k):
+        rgg = RandomGeometricGraph(500, 2.5, alpha, func)
+        rgg.add_edges()
+        avg_giant_component_size += rgg.getLargestComponent()
+        
+    avg_giant_component_size /= k   
+    giant_component_sizes.append(avg_giant_component_size)
+    alphas.append(alpha)
+
+fig = go.Figure(data=go.Scatter(x=alphas, y=giant_component_sizes, mode='lines+markers'))
+
+fig.update_layout(
+    title="Largest Component Size vs. Alpha for N = 500 and γ = 2.5",
+    xaxis_title="Alpha",
+    yaxis_title="Largest Component Size",
+    showlegend=False
+)
+
+fig.show()
+
+''' 
+gamma = 2.5    
+k = 10
+alpha = -10
     
 alphas = []
 probabilities = []
 giant_component_sizes = []
 clust_coefficients = []
 diameter_sizes = []
-N = 100
+N = 500
     
-while (alpha < 5 * N):
-    alpha += 5
+while (alpha < 4 * N):
+    alpha += 10
     probConnected = 0
     avg_giant_component_size = 0
     avg_cluster = 0
@@ -146,7 +182,8 @@ while (alpha < 5 * N):
     for i in range(k): 
         rgg = RandomGeometricGraph(N, gamma, alpha, func)
         rgg.add_edges() 
-        probConnected += rgg.isConnected()
+        if (alpha < 2 * N):
+            probConnected += rgg.isConnected()
         avg_giant_component_size += rgg.getLargestComponent()
         avg_cluster += rgg.getClusteringCoeffcient()
         avg_diameter += rgg.getDiameter() 
@@ -154,8 +191,9 @@ while (alpha < 5 * N):
     avg_giant_component_size /= k   
     giant_component_sizes.append(avg_giant_component_size)
     
-    probConnected /= k 
-    probabilities.append(probConnected)
+    if (alpha < 2 * N):
+        probConnected /= k 
+        probabilities.append(probConnected)
     
     avg_diameter /= k
     diameter_sizes.append(avg_diameter)
