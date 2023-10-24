@@ -13,7 +13,7 @@ def home():
 def get_graph_data():
     n = request.args.get('n', default=500, type=int)
     gamma = request.args.get('gamma', default=2.5, type=float)
-    alpha = request.args.get('alpha', default=400, type=float)
+    alpha = request.args.get('alpha', default=500, type=float)
 
     func_str = request.args.get('func', default="lambda x, y, z: x*y / (z**2)")
     func = eval(func_str)
@@ -44,6 +44,8 @@ def get_graph_data():
     succGreedyOneWay = rgg.measure_improved_greedy_one_way_success_probability()
     stretchTwoWay = rgg.get_stretch_two_way()
 
+    specialPairs = rgg.find_special_pairs_count()
+
     #rgg.plot_degree_distribution()
     #rgg.plot_weights()
     
@@ -51,7 +53,7 @@ def get_graph_data():
     #rgg.plot_degree_distribution_with_highlight()
 
 
-    return jsonify({'nodes': nodes, 'edges': edges, 'mxEdge': mxEdge, 'gamma': gamma, 'alpha': alpha, 'largestComponentSz': largestComponentSz, 'diameter': diam, 'avgDist': avgDistance, 'amountComp': rgg.amountComponents, 'clusteringCoef': rgg.getClusteringCoeffcient(), 'func': func_str, 'nrNoBiggerNeighbor' : len(no_bigger_neighbors), 'succNaivGreedy' : succNaivGreedy, 'succGreedy' : succGreedy, 'succGreedyOneWay' : succGreedyOneWay, 'stretchOneWay' : stretchOneWay, 'stretchTwoWay' : stretchTwoWay})
+    return jsonify({'nodes': nodes, 'edges': edges, 'mxEdge': mxEdge, 'gamma': gamma, 'alpha': alpha, 'largestComponentSz': largestComponentSz, 'diameter': diam, 'avgDist': avgDistance, 'amountComp': rgg.amountComponents, 'clusteringCoef': rgg.getClusteringCoeffcient(), 'func': func_str, 'nrNoBiggerNeighbor' : len(no_bigger_neighbors), 'succNaivGreedy' : succNaivGreedy, 'succGreedy' : succGreedy, 'succGreedyOneWay' : succGreedyOneWay, 'stretchOneWay' : stretchOneWay, 'stretchTwoWay' : stretchTwoWay, 'specialPairs': specialPairs})
 
 if __name__ == '__main__':
     app.run(debug=True)

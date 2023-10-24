@@ -88,7 +88,7 @@ class RandomGeometricGraph:
 
     def verticesWithoutBiggerNeighbor(self): 
         no_bigger_neighbors = []
-        for node in self.graph.nodes():
+        for node in range(self.num_nodes):
             weight = self.weights[node]
             if all(self.weights[n] <= weight for n in self.graph.neighbors(node)):
                 no_bigger_neighbors.append(node)
@@ -103,13 +103,39 @@ class RandomGeometricGraph:
         for node in range(self.num_nodes):
             root = self.dsu.find(node)
             if root not in root_to_size:
-                root_to_size[root] = self.dsu.sz(root)
+                root_to_size[root] = 1
+            root_to_size[root] += 1
 
         # Finde die Wurzel der größten Zusammenhangskomponente
         largest_root = max(root_to_size, key=root_to_size.get)
- 
+    
         return largest_root
 
+
+    def find_special_pairs_count(self):
+        rt = self.vertex_in_largest_component()
+        nodesCmp = []
+        largestWeight = float('-inf')
+        largestNode = None
+        
+        #for v in self.graph.nodes:  # Wir nehmen an, dass die Ecken von 0 bis self.V-1 nummeriert sind
+        for v in range(self.num_nodes):    
+            if self.dsu.find(v) == rt:
+                nodesCmp.append(v)
+                if self.weights[v] > largestWeight:
+                    largestNode = v
+                    largestWeight = self.weights[v]
+
+        cnt = 0
+        alle = 0
+
+        for v in nodesCmp: 
+            for u in nodesCmp: 
+                if u != v:
+                    cnt += ((self.distance_matrix[u][largestNode] + self.distance_matrix[v][largestNode]) == self.distance_matrix[u][v])
+                    alle += 1 
+ 
+        return cnt / alle
 
     def naive_greedy_path(self, x, y): 
         visited_from_x = {x}
@@ -225,6 +251,7 @@ class RandomGeometricGraph:
             path_from_x = self.reconstruct_path(parent_from_x, x, intersection)
             path_from_y = self.reconstruct_path(parent_from_y, y, intersection)
             #print(path_from_x + path_from_y[1:])
+           # print(x, y, len(path_from_x) + len(path_from_y[:-1]), path_from_x + path_from_y[:-1])
             return path_from_x + path_from_y[1:]
         else:
             return None
@@ -261,6 +288,7 @@ class RandomGeometricGraph:
         if intersections:
             intersection = intersections[0]
             path_from_x = self.reconstruct_path(parent_from_x, x, intersection)
+            #print(x, y, len(path_from_x), path_from_x)
            # print(x, y, intersection, path_from_x)
             return path_from_x
         else:
@@ -287,7 +315,7 @@ class RandomGeometricGraph:
     def get_stretch_one_way(self):
         successful_attempts = 0
         largestRoot = self.vertex_in_largest_component()
-        nodes_in_largest_component = [node for node in self.graph.nodes if self.dsu.find(node) == self.dsu.find(largestRoot)]
+        nodes_in_largest_component = [node for node in range(self.num_nodes) if self.dsu.find(node) == self.dsu.find(largestRoot)]
         avg = 0 
 
         if len(nodes_in_largest_component) <= 2:

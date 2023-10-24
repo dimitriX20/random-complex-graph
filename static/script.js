@@ -19,6 +19,7 @@ d3.json("http://localhost:5000/graph").then(function(graph) {
     //console.log(`            success of naiv greedy path algo: ${graph.succNaivGreedy}`);
     console.log(`            success of improved greedy path algo: ${graph.succGreedy}, stretchFactor: ${graph.stretchTwoWay}`);
     console.log(`            success of one way improved greedy path algo: ${graph.succGreedyOneWay}, stretchFactor one Way: ${graph.stretchOneWay}`);
+    console.log(`            percentage of pairs where mx weight node contributes to shortest path: ${graph.specialPairs}`);
      
     // console.log(`            farthest dist from max weight vertex / diameter: ${graph.dPrime}`);
 
