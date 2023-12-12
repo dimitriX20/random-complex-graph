@@ -46,7 +46,7 @@ This project is an interactive web application that allows users to generate and
 Ensure Python and Flask are installed on your system. Clone the repository and install the required Python packages:
 
 ```bash
-git clone https://github.com/YourGithubUsername/RandomComplexGraph.git
+git clone https://github.com/dimitriX20/RandomComplexGraph.git
 cd RandomComplexGraph
 pip install -r requirements.txt
 ```
