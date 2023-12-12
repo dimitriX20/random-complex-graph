@@ -14,7 +14,7 @@ This project is an web application that allows users to generate and visualize R
 
 ## Installation
 
-Ensure Python and Flask are installed on your system. Clone the repository and install the required Python packages:
+Ensure Python pip and git are installed on your system. Clone the repository and install the required Python packages:
 
 ```bash
 git clone https://github.com/dimitriX20/RandomComplexGraph.git
