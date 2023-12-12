@@ -63,4 +63,6 @@ Then open your browser and go to http://localhost:5000 to use the application.
 
 ## Examples
 ![Random Graph](exampleGraph.png)
+
+Here the degree distribution from another random graph:
 ![Degree Distribution from another random graph](dg.png)
