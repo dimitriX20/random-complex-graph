@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is an interactive web application that allows users to generate and visualize Random Geometric Graphs (RGGs). Users can adjust various parameters to see how they affect the graph's structure and properties. The application also provides detailed analysis of graph properties, including diameter, average distance, clustering coefficient, and more.
+This project is an web application that allows users to generate and visualize Random Geometric Graphs (RGGs). Users can see how various parameters affect the graph's structure and properties. The application also provides detailed analysis of graph properties, including diameter, average distance, clustering coefficient, and more.
 
 ## Technologies
 
